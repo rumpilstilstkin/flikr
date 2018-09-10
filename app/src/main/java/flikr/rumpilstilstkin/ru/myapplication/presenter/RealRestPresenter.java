@@ -2,7 +2,7 @@ package flikr.rumpilstilstkin.ru.myapplication.presenter;
 
 
 import flikr.rumpilstilstkin.ru.myapplication.presenter.base.BaseRestPresenter;
-import rx.Observable;
+import io.reactivex.Flowable;
 
 
 public class RealRestPresenter extends BaseRestPresenter<String> {
@@ -14,7 +14,7 @@ public class RealRestPresenter extends BaseRestPresenter<String> {
 
     public void update(){
         getViewState().startLoading();
-        Observable.just("", "")
+        Flowable.just("", "")
                 .subscribe(this);
     }
 }

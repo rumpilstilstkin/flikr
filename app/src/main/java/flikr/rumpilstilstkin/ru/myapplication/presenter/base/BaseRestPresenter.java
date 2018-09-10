@@ -1,14 +1,19 @@
 package flikr.rumpilstilstkin.ru.myapplication.presenter.base;
 
-
 import com.arellomobile.mvp.MvpPresenter;
 
-import rx.Observer;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
-abstract class BaseRestPresenter<T> extends MvpPresenter<BaseRestView> implements Observer<T> {
+public abstract class BaseRestPresenter<T, V extends BaseRestView> extends MvpPresenter<V> implements Subscriber<T> {
 
     @Override
-    public void onCompleted() {
+    public void onSubscribe(Subscription s) {
+        s.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onComplete() {
         getViewState().hideLOading();
     }
 
