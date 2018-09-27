@@ -14,8 +14,8 @@ import flikr.rumpilstilstkin.ru.myapplication.model.FeedViewModel;
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     private View root;
-    private TextView description = root.findViewById(R.id.description);
-    private ImageView image = root.findViewById(R.id.imageView);
+    private TextView description;
+    private ImageView image;
 
     private FeedViewModel model;
     FeedAdapter.OnFeedClickListener listener;
@@ -29,6 +29,8 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                     }
                 }
         );
+        description = root.findViewById(R.id.description);
+        image = root.findViewById(R.id.imageView);
     }
 
     public void bind(FeedViewModel model, FeedAdapter.OnFeedClickListener listener) {

@@ -1,11 +1,18 @@
 package flikr.rumpilstilstkin.ru.myapplication.presenter.base;
 
+
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+
 public abstract class BaseRestPresenter<T, V extends BaseRestView> extends MvpPresenter<V> implements Subscriber<T> {
+
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+    }
 
     @Override
     public void onSubscribe(Subscription s) {
