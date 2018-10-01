@@ -17,12 +17,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import flikr.rumpilstilstkin.ru.myapplication.R;
-import flikr.rumpilstilstkin.ru.myapplication.model.FeedViewModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.model.view.FeedViewModel;
 import flikr.rumpilstilstkin.ru.myapplication.presenter.feed.FeedPresenter;
 import flikr.rumpilstilstkin.ru.myapplication.presenter.feed.FeedView;
 
 
-public class FeedFragment extends MvpAppCompatFragment implements FeedView, FeedAdapter.OnFeedClickListener {
+public class FeedFragment extends MvpAppCompatFragment implements
+                                                       FeedView,
+                                                       FeedAdapter.Listener {
 
     @InjectPresenter
     FeedPresenter presenter;

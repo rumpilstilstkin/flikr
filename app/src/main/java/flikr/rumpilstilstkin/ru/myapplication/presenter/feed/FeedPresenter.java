@@ -4,45 +4,61 @@ package flikr.rumpilstilstkin.ru.myapplication.presenter.feed;
 import com.arellomobile.mvp.InjectViewState;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import flikr.rumpilstilstkin.ru.myapplication.MainApp;
-import flikr.rumpilstilstkin.ru.myapplication.data.Endpoins;
-import flikr.rumpilstilstkin.ru.myapplication.model.FeedViewModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.model.realm.FeedModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.model.view.FeedViewModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.usecases.FeedUsecases;
 import flikr.rumpilstilstkin.ru.myapplication.presenter.base.BaseRestPresenter;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 @InjectViewState
-public class FeedPresenter extends BaseRestPresenter<Object, FeedView> {
+public class FeedPresenter extends BaseRestPresenter<Integer, FeedView> {
 
     @Inject
-    Endpoins netApi;
+    FeedUsecases usecases;
+
+    Realm realm;
 
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
+        realm = Realm.getDefaultInstance();
         MainApp.getComponent().injectsToFeedPresenter(this);
+        update();
     }
 
     @Override
     public void attachView(FeedView view) {
         super.attachView(view);
-
-        update();
+        setData();
     }
 
     @Override
-    public void onNext(Object o) {
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 
+    @Override
+    public void onNext(Integer o) {
+        setData();
     }
 
     private void update() {
-        List<FeedViewModel> items = new ArrayList<>();
-        FeedViewModel feed = new FeedViewModel(1, "", "");
-        feed.description = "some description";
-        items.add(feed);
-        getViewState().setItems(items);
+        usecases.getFeed().subscribe(this);
+    }
+
+    private void setData() {
+        RealmResults<FeedModel> feed = realm.where(FeedModel.class).findAll();
+        ArrayList<FeedViewModel> result = new ArrayList<FeedViewModel>();
+        for (FeedModel curItem : feed) {
+            result.add(new FeedViewModel(curItem));
+        }
+        getViewState().setItems(result);
     }
 }

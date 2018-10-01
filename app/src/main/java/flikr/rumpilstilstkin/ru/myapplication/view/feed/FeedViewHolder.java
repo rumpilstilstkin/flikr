@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import flikr.rumpilstilstkin.ru.myapplication.R;
-import flikr.rumpilstilstkin.ru.myapplication.model.FeedViewModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.model.view.FeedViewModel;
+
 
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 
@@ -18,7 +19,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     private ImageView image;
 
     private FeedViewModel model;
-    FeedAdapter.OnFeedClickListener listener;
+    FeedAdapter.Listener listener;
 
     private FeedViewHolder(View view) {
         super(view);
@@ -33,7 +34,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         image = root.findViewById(R.id.imageView);
     }
 
-    public void bind(FeedViewModel model, FeedAdapter.OnFeedClickListener listener) {
+    public void bind(FeedViewModel model, FeedAdapter.Listener listener) {
         this.listener = listener;
         this.model = model;
         description.setText(model.description);

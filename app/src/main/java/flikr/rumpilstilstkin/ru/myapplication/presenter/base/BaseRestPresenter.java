@@ -26,6 +26,7 @@ public abstract class BaseRestPresenter<T, V extends BaseRestView> extends MvpPr
 
     @Override
     public void onError(Throwable e) {
+        e.printStackTrace();
         getViewState().showError(e.getLocalizedMessage());
     }
 }

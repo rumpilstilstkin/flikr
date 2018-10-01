@@ -20,7 +20,7 @@ public class MainApp extends Application {
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(configuration);
 
-        component = DaggerAppComponent.create();
+        component = DaggerAppComponent.builder().build();
     }
 
 

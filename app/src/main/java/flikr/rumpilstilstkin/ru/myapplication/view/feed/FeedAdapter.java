@@ -9,15 +9,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import flikr.rumpilstilstkin.ru.myapplication.model.FeedViewModel;
+import flikr.rumpilstilstkin.ru.myapplication.data.model.view.FeedViewModel;
+
+;
 
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
     private ArrayList<FeedViewModel> data = new ArrayList<>();
-    private OnFeedClickListener listener;
+    private Listener listener;
 
-    FeedAdapter(OnFeedClickListener listener){
+    FeedAdapter(Listener listener){
         super();
         this.listener = listener;
     }
@@ -44,7 +46,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         notifyDataSetChanged();
     }
 
-    public interface OnFeedClickListener{
+    public void addItems(List<FeedViewModel> list){
+        int oldIndex=data.size();
+        data.addAll(list);
+        notifyItemRangeInserted(oldIndex, list.size());
+    }
+
+    public interface Listener {
         void onFeedClick(long id);
     }
 }

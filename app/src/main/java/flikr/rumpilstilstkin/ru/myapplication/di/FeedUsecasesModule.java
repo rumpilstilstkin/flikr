@@ -6,15 +6,15 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import flikr.rumpilstilstkin.ru.myapplication.data.Endpoins;
-import flikr.rumpilstilstkin.ru.myapplication.data.ServiceGenerator;
+import flikr.rumpilstilstkin.ru.myapplication.data.usecases.FeedUsecases;
 
 
 @Module
-public class DaggerNetModule {
+public class FeedUsecasesModule {
+
     @Provides
     @Singleton
-    Endpoins getEndpoins(){
-        return new ServiceGenerator().createService(Endpoins.class);
+    FeedUsecases feedUsecases(Endpoins endpoins) {
+        return new FeedUsecases(endpoins);
     }
 }
-
