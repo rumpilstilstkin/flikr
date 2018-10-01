@@ -21,8 +21,6 @@ public class FeedUsecases {
 
         return endpoints
                 .getFeed()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .map(feedModels -> {
                     Realm realm = Realm.getDefaultInstance();
                     realm.executeTransactionAsync(realm1 -> {
@@ -36,6 +34,8 @@ public class FeedUsecases {
 
                     realm.close();
                     return feedModels.size();
-                });
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
     }
 }

@@ -12,6 +12,7 @@ import flikr.rumpilstilstkin.ru.myapplication.presenter.feed.FeedPresenter;
 @Component(modules={DaggerNetModule.class, FeedUsecasesModule.class})
 public interface AppComponent {
     FeedUsecases feedUsecases();
+
     void injectsToFeedPresenter(FeedPresenter presenter);
 }
 
